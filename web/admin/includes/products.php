@@ -65,6 +65,22 @@ if (!$result) {
 							<div class="adm_add_txt"><input class="add_input" type="number" step="0.01" id="product_price" value="0.00"></div>
 						</div>
 
+						<div class="form-field-group">
+							<div class="adm_add_tit">Categoría:</div>
+							<div class="adm_add_txt">
+								<select class="add_input" id="product_category">
+									<option value="">— Sin categoría —</option>
+									<option value="remeras">Remeras</option>
+									<option value="polo">Polos</option>
+									<option value="musculosa">Musculosas</option>
+									<option value="mochila">Mochilas</option>
+									<option value="botella">Botellas</option>
+									<option value="bucket">Bucket Hats</option>
+									<option value="accesorios">Accesorios</option>
+								</select>
+							</div>
+						</div>
+
 						<div class="form-field-group" style="text-align:right; margin-top: 10px;">
 							<button type="button" onclick="product_create()" style="background: #00b4d8; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
 								Guardar
@@ -208,9 +224,10 @@ function product_del(id) {
 
 function product_create() {
     let data = {
-        name:		document.getElementById('product_name')?.value	|| '',
-        description: document.getElementById('product_description')?.value	|| '',
-        price:		document.getElementById('product_price')?.value	|| '0.00'
+        name:        document.getElementById('product_name')?.value        || '',
+        description: document.getElementById('product_description')?.value || '',
+        price:       document.getElementById('product_price')?.value       || '0.00',
+        category:    document.getElementById('product_category')?.value    || '',
     };
 
     fetch(basePath + 'includes/products_create_js.php', {

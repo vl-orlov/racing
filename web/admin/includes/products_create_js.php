@@ -44,21 +44,21 @@ try {
     // Не используем mysqli_real_escape_string для prepared statements - они уже безопасны
     $name = isset($input['name']) ? trim($input['name']) : '';
     $description = isset($input['description']) ? trim($input['description']) : '';
-    // Сохраняем цену точно как указано, без преобразования через floatval
     $price = isset($input['price']) ? trim($input['price']) : '0.00';
-    // Преобразуем в число для проверки, но сохраняем исходное значение
     $priceValue = floatval($price);
     if ($priceValue < 0) {
         $priceValue = 0.00;
         $price = '0.00';
     }
-    
-    // Проверка обязательных полей
+    $allowed_categories = ['remeras','polo','musculosa','mochila','botella','bucket','accesorios'];
+    $category = isset($input['category']) && in_array($input['category'], $allowed_categories)
+        ? $input['category'] : '';
+
     if (empty($name)) {
         throw new Exception('El nombre es obligatorio');
     }
-    
-    $query = "INSERT INTO products (name, description, price) VALUES (?, ?, ?)";
+
+    $query = "INSERT INTO products (name, description, price, category) VALUES (?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
@@ -66,7 +66,7 @@ try {
     }
     
     // Используем 's' для всех параметров, включая цену (DECIMAL в MySQL принимает строку)
-    mysqli_stmt_bind_param($stmt, "sss", $name, $description, $price);
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $description, $price, $category);
     
     $success = mysqli_stmt_execute($stmt);
     

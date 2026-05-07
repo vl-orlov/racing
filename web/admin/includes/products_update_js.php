@@ -48,14 +48,15 @@ try {
     // Не используем mysqli_real_escape_string для prepared statements - они уже безопасны
     $name = isset($input['name']) ? trim($input['name']) : '';
     $description = isset($input['description']) ? trim($input['description']) : '';
-    // Сохраняем цену точно как указано, без преобразования через floatval
     $price = isset($input['price']) ? trim($input['price']) : '0.00';
-    // Преобразуем в число для проверки, но сохраняем исходное значение
     $priceValue = floatval($price);
     if ($priceValue < 0) {
         $priceValue = 0.00;
         $price = '0.00';
     }
+    $allowed_categories = ['remeras','polo','musculosa','mochila','botella','bucket','accesorios'];
+    $category = isset($input['category']) && in_array($input['category'], $allowed_categories)
+        ? $input['category'] : '';
     $image_path = isset($input['image_path']) ? trim($input['image_path']) : '';
     
     // Проверка обязательных полей
@@ -78,11 +79,9 @@ try {
         }
     }
     
-    // Обновляем данные товара
-    $query = "UPDATE products SET name = ?, description = ?, price = ?, image_path = ?, updated_at = UNIX_TIMESTAMP() WHERE id = ?";
+    $query = "UPDATE products SET name = ?, description = ?, price = ?, category = ?, image_path = ?, updated_at = UNIX_TIMESTAMP() WHERE id = ?";
     $stmt = mysqli_prepare($link, $query);
-    // Используем 's' для всех строковых параметров, включая цену (DECIMAL в MySQL принимает строку)
-    mysqli_stmt_bind_param($stmt, 'ssssi', $name, $description, $price, $image_path, $productId);
+    mysqli_stmt_bind_param($stmt, 'sssssi', $name, $description, $price, $category, $image_path, $productId);
     
     if (!mysqli_stmt_execute($stmt)) {
         throw new Exception("Error al actualizar datos del producto: " . mysqli_error($link));

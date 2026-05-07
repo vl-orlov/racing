@@ -44,7 +44,7 @@ try {
     global $link;
     
     // Читаем цену как строку, чтобы сохранить точное значение (включая незначащие нули)
-    $query = "SELECT id, name, description, CAST(price AS CHAR) as price, image_path, created_at, updated_at 
+    $query = "SELECT id, name, description, CAST(price AS CHAR) as price, category, image_path, created_at, updated_at
               FROM products WHERE id = ? LIMIT 1";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, 'i', $productId);

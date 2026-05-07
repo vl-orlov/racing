@@ -23,72 +23,45 @@ if ($page == 'logout') {
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="es-AR">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Admin</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="<?= $basePath ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="<?= $basePath ?>css/style.css?v=0.0.2">
-    <link rel="stylesheet" href="<?= $basePath ?>css/styleA.css?v=0.0.2">
+    <title>Racing Gaming · Admin</title>
+    <link rel="icon" type="image/png" href="<?= $basePath ?>img/logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="<?= $basePath ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="<?= $basePath ?>css/style.css" rel="stylesheet">
+    <link href="<?= $basePath ?>css/styleA.css?v=2.0" rel="stylesheet">
 </head>
-
 <body id="page-top">
 
-<div class="debug" id="debug"></div>
-<!-- Page Wrapper -->
+<div id="debug"></div>
 <div id="wrapper">
 
+    <?php include 'includes/nav.php'; ?>
 
-<? include 'includes/nav.php'; ?> 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
 
-            <div id="content">
-                <!-- Topbar -->
-                <?php include 'includes/topbar.php'; ?>
-                <!-- End of Topbar -->
+            <?php include 'includes/topbar.php'; ?>
 
-<?
-include __DIR__ . '/includes/products.php';
-?>
+            <div class="container-fluid px-4 py-3">
+                <?php include __DIR__ . '/includes/products.php'; ?>
+            </div>
 
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+</div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?= $basePath ?>vendor/jquery/jquery.min.js"></script>
-    <script src="<?= $basePath ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="<?= $basePath ?>vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="<?= $basePath ?>js/sb-admin-2.min.js"></script>
+<script src="<?= $basePath ?>vendor/jquery/jquery.min.js"></script>
+<script src="<?= $basePath ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= $basePath ?>vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="<?= $basePath ?>js/sb-admin-2.min.js"></script>
 
 </body>
-
 </html>
 

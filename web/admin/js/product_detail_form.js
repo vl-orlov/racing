@@ -16,6 +16,22 @@ function generateProductFormHTML(data, productId) {
     
     html += '<div class="form-group"><label>Precio <span class="req">*</span></label>';
     html += '<input type="number" step="0.01" class="form-control" id="form_product_price" value="' + escapeHtml(data.price || '0.00') + '" required></div>';
+
+    const categories = [
+        {value: '',           label: '— Sin categoría —'},
+        {value: 'remeras',    label: 'Remeras'},
+        {value: 'polo',       label: 'Polos'},
+        {value: 'musculosa',  label: 'Musculosas'},
+        {value: 'mochila',    label: 'Mochilas'},
+        {value: 'botella',    label: 'Botellas'},
+        {value: 'bucket',     label: 'Bucket Hats'},
+        {value: 'accesorios', label: 'Accesorios'},
+    ];
+    let opts = categories.map(c =>
+        '<option value="' + c.value + '"' + (data.category === c.value ? ' selected' : '') + '>' + c.label + '</option>'
+    ).join('');
+    html += '<div class="form-group"><label>Categoría</label>';
+    html += '<select class="form-control" id="form_product_category">' + opts + '</select></div>';
     
     html += '<div class="form-group"><label>Creado el</label>';
     html += '<div class="readonly-field">' + escapeHtml(data.created_at || '') + '</div></div>';
@@ -91,6 +107,7 @@ function saveProductData(productId) {
     const name = document.getElementById('form_product_name')?.value.trim() || '';
     const description = document.getElementById('form_product_description')?.value.trim() || '';
     const price = document.getElementById('form_product_price')?.value || '0.00';
+    const category = document.getElementById('form_product_category')?.value || '';
     const imagePath = document.getElementById('form_product_image')?.dataset?.currentPath || '';
     
     if (!name) {
@@ -102,8 +119,8 @@ function saveProductData(productId) {
         product_id: productId,
         name: name,
         description: description,
-        // Отправляем цену как строку, чтобы сохранить точное значение
-        price: price || '0.00'
+        price: price || '0.00',
+        category: category,
     };
     
     if (imagePath) {
